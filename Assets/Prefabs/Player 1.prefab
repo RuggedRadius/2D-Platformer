@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7609984919732133108}
   - component: {fileID: 7609984919732133104}
   - component: {fileID: 7704288836683549559}
+  - component: {fileID: -8747557368092728357}
+  - component: {fileID: 2334206103991482513}
   m_Layer: 9
   m_Name: Player 1
   m_TagString: Player
@@ -29,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7609984919732133115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.05, y: 3.56, z: -3.5060787}
+  m_LocalPosition: {x: -4.001, y: 3.645, z: -3.5060787}
   m_LocalScale: {x: 5, y: 5, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -117,8 +119,8 @@ PolygonCollider2D:
       - {x: -0.0046141148, y: 0.16224027}
       - {x: -0.02813673, y: 0.10948634}
       - {x: -0.064213514, y: 0.07448065}
-      - {x: -0.06026697, y: -0.17237401}
-      - {x: 0.038427353, y: -0.17434716}
+      - {x: -0.04930992, y: -0.16385184}
+      - {x: 0.039644815, y: -0.16460752}
       - {x: 0.062641025, y: -0.070667505}
       - {x: 0.10026705, y: -0.049999952}
 --- !u!50 &7609984919732133108
@@ -161,6 +163,8 @@ MonoBehaviour:
   jumpPower: 350
   horizontalPower: 5
   horizontalSpeedMax: 1
+  currentInput: 0
+  grounded: 0
 --- !u!95 &7704288836683549559
 Animator:
   serializedVersion: 3
@@ -180,3 +184,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8747557368092728357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609984919732133115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1234a0330b3abc4d9b25b98a069019a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2334206103991482513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609984919732133115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4020ca5fa47c0a49b35468d34fb94c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximum: 100
+  current: 100
