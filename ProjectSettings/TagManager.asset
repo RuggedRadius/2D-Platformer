@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - UI
+  - StartLocation
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Walkable
+  - Player
+  - Enemy
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 11940461
+    locked: 0
+  - name: Scenary Background
+    uniqueID: 3565400751
+    locked: 0
+  - name: Ground
+    uniqueID: 697247733
+    locked: 0
+  - name: Enterable_Back
+    uniqueID: 1361964453
+    locked: 0
+  - name: Player
+    uniqueID: 1025488265
+    locked: 0
+  - name: Enterable_Front
+    uniqueID: 3567344307
+    locked: 0
+  - name: Collectable
+    uniqueID: 900675629
+    locked: 0
+  - name: Enemies
+    uniqueID: 2791407539
+    locked: 0
+  - name: Scenary Foreground
+    uniqueID: 2876166595
+    locked: 0
+  - name: UI
+    uniqueID: 3246084475
+    locked: 0
