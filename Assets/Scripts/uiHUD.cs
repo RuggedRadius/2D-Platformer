@@ -8,12 +8,12 @@ public class uiHUD : MonoBehaviour
     public Text scoreValue;
 
     private GameManager gm;
-    private PlayerData playerData;
+    private GameData playerData;
 
     void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-        playerData = gm.GetComponentInChildren<PlayerData>();
+        playerData = GameManager.gameData;
     }
 
     void Update()

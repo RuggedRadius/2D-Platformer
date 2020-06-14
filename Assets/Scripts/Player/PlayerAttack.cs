@@ -43,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
         // Attack
         Debug.Log("Attacking");
         hit = Physics2D.Raycast(origin, direction, meleeDistance, enemiesMask);
-        Debug.DrawRay(origin, direction, Color.red, 1f);
+        Debug.DrawRay(origin, Vector2.right, Color.red, 1f);
 
         // If something hit...
         if (hit.collider != null)
@@ -59,11 +59,12 @@ public class PlayerAttack : MonoBehaviour
                 enemyLife.takeDamage(damageMelee);
 
                 // Increment player's score
-                GameManager.playerData.score += Mathf.Abs(hit.collider.gameObject.GetComponent<Enemy>().scoreValue);
+                GameManager.gameData.score += Mathf.Abs(hit.collider.gameObject.GetComponent<Enemy>().scoreValue);
             }
             catch (Exception ex)
             {
                 Debug.LogError("Could not find enemy script on gameobject on enemy layer");
+                ex.ToString();
             }
         }
 

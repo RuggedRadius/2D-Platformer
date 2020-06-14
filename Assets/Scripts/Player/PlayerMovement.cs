@@ -81,33 +81,33 @@ public class PlayerMovement : MonoBehaviour
 
     
     Ray ray;
-    float groundedDistance = 1f;
+    float groundedDistance = 0.9f;
     Vector2 origin;
     Vector2 direction;
-    ContactFilter2D filter;
     RaycastHit2D hit;
     public bool grounded;
 
     private IEnumerator checkGround()
     {
-        
         LayerMask layerMask = LayerMask.GetMask("Walkable");
 
         // Change this to while alive later when health/life is implemented!!
         while (true)
         {
+            //Debug.Log("Checking ground");
+
             // Set position and direction of shot
             origin = this.transform.position;
-            direction = -this.transform.up;
+            direction = Vector3.down;
 
             // Shoot the shot
-            hit = Physics2D.Raycast(origin, direction, 1f, layerMask);
-            
+            hit = Physics2D.Raycast(origin, direction, groundedDistance, layerMask);
+            Debug.DrawRay(origin, direction, Color.red, 1f);
 
-
+            // If hit..
             if (hit.collider != null)
             {
-                Debug.Log("Hit: " + hit.collider.name);
+                //Debug.Log("Hit: " + hit.collider.name);
 
                 // Grounded
                 setGrounded(true);
@@ -117,7 +117,6 @@ public class PlayerMovement : MonoBehaviour
                 // Not grounded
                 setGrounded(false);
             }
-            
 
             yield return null;
         }

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    GameObject player;
+    public bool spawnerOn;
+    private GameObject player;
     public GameObject playerPrefab;
-
+    
 
     void Update()
     {
-        if (player == null)
+        if (player == null && spawnerOn)
         {
             Debug.Log("Spawning player...");
             GameObject newPlayer = Instantiate(playerPrefab, null);

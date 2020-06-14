@@ -5,24 +5,26 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static PlayerData playerData;
+    public static GameData gameData;
 
-    private FileHandling fileHandling;
-
-    public GameManager ()
-    {
-        Debug.Log("Creating Game Manager..");
-
-        
-    }
+    public static GameObject player;
+    
 
     private void Awake()
     {
-        FileHandling.LoadData();
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        //Save.InitialiseSaveFile();
+
+        Load.LoadFile();
     }
 
-    void Start()
+    private void Update()
     {
-        playerData = this.GetComponentInChildren<PlayerData>();
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            Save.SaveFile(gameData);
+            Debug.Log("Quick saved.");
+        }
     }
 }

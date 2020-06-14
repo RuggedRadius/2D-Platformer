@@ -68,6 +68,9 @@ TextureImporter:
   - first:
       213: 6766711677222740992
     second: knight 3 improved slash animation_11
+  - first:
+      213: -1630007149577730195
+    second: knight 3 improved slash animation_10
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -401,8 +404,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3744afd56a45e9640800000000000000
-      internalID: 5088597702493226099
+      spriteID: d678214322d0169e0800000000000000
+      internalID: -1630007149577730195
       vertices: []
       indices: 
       edges: []

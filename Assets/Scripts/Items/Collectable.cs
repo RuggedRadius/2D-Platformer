@@ -23,7 +23,7 @@ public class Collectable : MonoBehaviour
     public void Collect()
     {
         // Increment player score
-        GameManager.playerData.score += Mathf.Abs(scoreValue);
+        GameManager.gameData.score += Mathf.Abs(scoreValue);
 
         // Add to total, accumulating to an extra life at 100
 

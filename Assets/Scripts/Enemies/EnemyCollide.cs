@@ -40,6 +40,7 @@ public class EnemyCollide : MonoBehaviour
             catch (NullReferenceException ex)
             {
                 Debug.Log("Player not spawned yet..");
+                ex.ToString();
             }
         }
     }
@@ -52,7 +53,7 @@ public class EnemyCollide : MonoBehaviour
         if (collision.gameObject.layer == 9)
         {
             // Player entered trigger
-            this.GetComponent<Life>().takeDamage(damageTEMP);
+            //this.GetComponent<Life>().takeDamage(damageTEMP);
         }
     }
 
@@ -86,7 +87,7 @@ public class EnemyCollide : MonoBehaviour
     {
         damagingPlayer = true;
         // Decrement player health
-        GameManager.playerData.health--;
+        GameManager.gameData.health--;
 
         // Damage FX on player, Flash sprite or something, shader perhaps
         // ...
