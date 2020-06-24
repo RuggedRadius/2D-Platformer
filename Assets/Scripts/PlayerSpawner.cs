@@ -13,11 +13,26 @@ public class PlayerSpawner : MonoBehaviour
     {
         if (player == null && spawnerOn)
         {
-            Debug.Log("Spawning player...");
-            GameObject newPlayer = Instantiate(playerPrefab, null);
-            newPlayer.transform.position = GameObject.FindGameObjectWithTag("StartLocation").transform.position;
+            SpawnPlayerAtStart();
 
-            player = newPlayer;
+            //// Doesnt work..
+            //if (GameManager.gameData != null)
+            //{
+            //    Load.LoadFile();
+            //}
+            //else
+            //{
+            //    SpawnPlayerAtStart();
+
+            //}
         }
+    }
+
+    public void SpawnPlayerAtStart()
+    {
+        Debug.Log("Spawning player...");
+        GameObject newPlayer = Instantiate(playerPrefab, null);
+        newPlayer.transform.position = GameObject.FindGameObjectWithTag("StartLocation").transform.position;
+        player = newPlayer;
     }
 }

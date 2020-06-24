@@ -93,13 +93,13 @@ public class EnemyCollide : MonoBehaviour
         // ...
 
         // Flash screen red
-        print("Start flash");
-        float flashDuration = 0.005f;
+        //print("Start flash");
+        float flashDuration = 0.05f;
         screen.color = Color.red;
         //yield return new WaitForSeconds(flashDuration);
         new WaitForSeconds(flashDuration);
         screen.color = Color.clear;
-        print("End flash");
+        //print("End flash");
 
         // Throw player back
         Vector2 force;

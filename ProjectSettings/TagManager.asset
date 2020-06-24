@@ -7,6 +7,9 @@ TagManager:
   - UI
   - StartLocation
   - Enemy
+  - Map
+  - WorldCanavs
+  - Screen
   layers:
   - Default
   - TransparentFX
