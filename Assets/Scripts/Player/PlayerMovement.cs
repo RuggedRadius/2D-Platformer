@@ -4,43 +4,75 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Vector2 currentMovement;
-    [SerializeField] private SpriteRenderer playerSprite;
-    [SerializeField] private Animator anim;
+    private Rigidbody2D rb;
+    private SpriteRenderer playerSprite;
+    private Animator anim;
+    private PlayerGrounded pGrounded;
+    private PlayerDustFX dust;
 
-    [Header("Settings")]
-    public float jumpPower;
-    public float horizontalPower;
-    public float horizontalSpeedMax;
-    public float currentInput;
+    [Header("Jump")]
+    [Range(1f, 1000f)] public float jumpPower;
+    private float jumpTimer = 0;
+    private float JumpTime = 1.5f;
+
+    [Header("Horizontal Movement")]
+    public float fHorizontalVelocity;
+    [Range(0f, 1000f)] public float horizontalPower;
+    [Range(0f, 100f)] public float horizontalSpeedMax;    
+    [Range(0f, 1f)] public float fHorizontalDampingWhenStopping = 0.5f;
+    [Range(0f, 1f)] public float fHorizontalDampingWhenTurning = 0.5f;
+    [Range(0f, 1f)] public float fHorizontalDampingBasic = 0.5f;
+
+    // States
+    public bool grounded;
+
+    // Timers
+    public float lastJumpTimer = 0f;
 
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
         playerSprite = this.GetComponent<SpriteRenderer>();
         anim = this.GetComponent<Animator>();
-
-        // Start grounded check
-        StartCoroutine(checkGround());
+        pGrounded = this.GetComponent<PlayerGrounded>();
+        dust = this.GetComponent<PlayerDustFX>();
 
         // Init animator
         anim.SetBool("alive", true);
     }
 
+
     void Update()
     {
-        // Update animator
-        currentInput = Input.GetAxisRaw("Horizontal");        
-        currentMovement = Vector2.right * currentInput * Time.deltaTime * horizontalPower;
-        this.transform.position += new Vector3(currentInput * Time.deltaTime * horizontalPower, 0f, 0f);
+        // Update grounded status
+        grounded = pGrounded.grounded;
 
-        if (!Mathf.Approximately(0, currentMovement.x))
+        // Decrement jump timer
+        jumpTimer -= Time.deltaTime;
+        
+        // Determine horizontal movement
+        fHorizontalVelocity = rb.velocity.x;
+        fHorizontalVelocity += Input.GetAxisRaw("Horizontal");
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.01f) 
         {
-            if (currentMovement.x > 0)
+            fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingWhenStopping, Time.deltaTime * 10f);
+        } 
+        else if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) != Mathf.Sign(fHorizontalVelocity))
+        {
+            fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingWhenTurning, Time.deltaTime * 10f);
+        }
+        else
+        {
+            fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingBasic, Time.deltaTime * 10f);
+        }
+        rb.velocity = new Vector2(fHorizontalVelocity, rb.velocity.y);
+
+        // Flip sprite if necessary
+        if (!Mathf.Approximately(0, rb.velocity.x))
+        {
+            if (rb.velocity.x > 0)
             {
                 playerSprite.flipX = false;
-                
             }
             else
             {
@@ -48,87 +80,43 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        // Jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //print("Space pushed");
-            if (Mathf.Abs(rb.velocity.y) < 0.001f)
+            // Check for grounded
+            if (grounded)
             {
-                //print("Jumping");
-                rb.AddForce(new Vector2(0, jumpPower * (rb.mass / 10f)), ForceMode2D.Impulse);
-                anim.SetTrigger("jump");
+                Jump();
+                jumpTimer = JumpTime;
             }
             else
             {
-                //print("Falling, cant jump");
+                print("Not grounded, cant jump");
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (jumpTimer > 0)
+            {
+                Debug.Log("extra jumping");
+                rb.AddForce(new Vector2(0, jumpPower / 50), ForceMode2D.Impulse);
             }
         }
 
         UpdateAnimator();
+    }
 
-        Camera.main.transform.position = new Vector3(
-            this.transform.position.x,
-            Camera.main.transform.position.y,
-            Camera.main.transform.position.z
-            );
+    private void Jump()
+    {
+        rb.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
+        anim.SetTrigger("jump");
+        dust.CreateJumpDust();
     }
 
     private void UpdateAnimator()
     {
-        anim.SetFloat("movement", currentInput);
+        anim.SetFloat("movement", Input.GetAxisRaw("Horizontal"));
         anim.SetBool("grounded", grounded);
-    }
-
-
-    
-    Ray ray;
-    float groundedDistance = 0.9f;
-    Vector2 origin;
-    Vector2 direction;
-    RaycastHit2D hit;
-    public bool grounded;
-
-    private IEnumerator checkGround()
-    {
-        LayerMask layerMask = LayerMask.GetMask("Walkable");
-
-        // Change this to while alive later when health/life is implemented!!
-        while (true)
-        {
-            //Debug.Log("Checking ground");
-
-            // Set position and direction of shot
-            origin = this.transform.position;
-            direction = Vector3.down;
-
-            // Shoot the shot
-            hit = Physics2D.Raycast(origin, direction, groundedDistance, layerMask);
-            Debug.DrawRay(origin, direction, Color.red, 1f);
-
-            // If hit..
-            if (hit.collider != null)
-            {
-                //Debug.Log("Hit: " + hit.collider.name);
-
-                // Grounded
-                setGrounded(true);
-            }
-            else
-            {
-                // Not grounded
-                setGrounded(false);
-            }
-
-            yield return null;
-        }
-    }
-
-    /// <summary>
-    /// Sets grounded status and updates animator values.
-    /// </summary>
-    /// <param name="value"></param>
-    private void setGrounded(bool value)
-    {
-        grounded = value;
-        anim.SetBool("grounded", value);
     }
 }

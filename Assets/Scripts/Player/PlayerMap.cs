@@ -57,7 +57,7 @@ public class PlayerMap : MonoBehaviour
             }
         }
 
-        Debug.Log(GetDistanceFromPlayer());
+        //Debug.Log(GetDistanceFromPlayer());
 
         // Show or Hide the map
         //ToggleMap(mapShown);

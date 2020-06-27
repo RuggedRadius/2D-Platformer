@@ -6,13 +6,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameData gameData;
-
-    public static GameObject player;
-    
+    public static GameObject player;    
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
 
         //Save.InitialiseSaveFile();
 

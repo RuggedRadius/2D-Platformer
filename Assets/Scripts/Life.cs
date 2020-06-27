@@ -9,14 +9,16 @@ public class Life : MonoBehaviour
 
     private GameManager gm;
 
-
+    private void Awake()
+    {
+        GameManager.player = this.gameObject;
+        gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();        
+    }
 
     private void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
-
-
 
     void Update()
     {

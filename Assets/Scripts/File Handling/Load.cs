@@ -59,7 +59,7 @@ public static class Load
                     // Health
                     // Direction
 
-                    Debug.Log("Loaded " + enemyDataSave.type + " at X: " + enemyDataSave.positionX + " Y: " + enemyDataSave.positionY);
+                    //Debug.Log("Loaded " + enemyDataSave.type + " at X: " + enemyDataSave.positionX + " Y: " + enemyDataSave.positionY);
 
                     break;
                 }
@@ -87,14 +87,16 @@ public static class Load
         float positionY = GameManager.gameData.currentPositionY;
 
         // Place player at position
-        if (GameManager.player != null)
-        {
+        Task.Run(() => { 
+
+            while (GameManager.player == null)
+            {
+                Debug.Log("Waiting for player to be created");
+                System.Threading.Thread.Sleep(1000);
+            }
+
             GameManager.player.transform.position = new Vector3(positionX, positionY, 0);
-        }
-        else
-        {
-            Debug.Log("No player position to position");
-        }
+        });
     }
 }
 
