@@ -96,7 +96,6 @@ public class EnemyCollide : MonoBehaviour
         //print("Start flash");
         float flashDuration = 0.05f;
         screen.color = Color.red;
-        //yield return new WaitForSeconds(flashDuration);
         new WaitForSeconds(flashDuration);
         screen.color = Color.clear;
         //print("End flash");

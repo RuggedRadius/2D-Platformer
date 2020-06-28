@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5584505687584522805}
   - component: {fileID: 2627095222920478182}
   - component: {fileID: 9021509485448412397}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: dustSlide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,22 +40,22 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1707208104817335363}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.06
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -105,7 +105,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.31
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -168,7 +168,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.01
+      scalar: -0.48
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -865,7 +865,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4.53
+      scalar: 1.65
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -981,8 +981,8 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 0
+          time: 0.020469666
+          value: 0.79244995
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -991,7 +991,7 @@ ParticleSystem:
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 0.5471708
+          value: 1
           inSlope: -0.60041916
           outSlope: -0.60041916
           tangentMode: 0
@@ -1133,10 +1133,10 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -1189,7 +1189,7 @@ ParticleSystem:
         m_RotationOrder: 4
     y:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -1242,9 +1242,9 @@ ParticleSystem:
         m_RotationOrder: 4
     curve:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0.7853982
-      minScalar: 0.7853982
+      minMaxState: 3
+      scalar: 1.5707963
+      minScalar: -1.5707963
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1504,7 +1504,7 @@ ParticleSystem:
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: -1
+          value: -0.037734985
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1548,7 +1548,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.037734985
+          value: 0.45282745
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -4764,7 +4764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2017005029719020327}
   - component: {fileID: 82534287940959557}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Slide Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}

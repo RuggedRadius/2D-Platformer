@@ -10,15 +10,12 @@ public class PlayerGrounded : MonoBehaviour
 
     Ray ray;
     Vector2 origin;
-    Vector2 direction;
     RaycastHit2D hit;
     LayerMask layerMask;
-
     public bool grounded;
     float groundedDistance = 0.9f;
     float sinceGroundedTimer = 0f;
     float groundedTime = 2f;
-
     float airBorneTimer = 0f;
 
 
@@ -46,17 +43,19 @@ public class PlayerGrounded : MonoBehaviour
 
 
         // Set position and direction of shot
-        origin = this.transform.position;
-        direction = Vector3.down;
+        origin = new Vector3(this.transform.position.x, this.transform.position.y - 1f, this.transform.position.z);
 
         // Shoot the shot
-        hit = Physics2D.Raycast(origin, direction, groundedDistance, layerMask);
-        Debug.DrawRay(origin, direction, Color.red, 1f);
+        hit = Physics2D.Raycast(origin, Vector3.down, groundedDistance, layerMask.value);
+        Debug.DrawRay(origin, Vector3.down, Color.red, 1f);
+        Debug.DrawLine(origin, origin + Vector2.down, Color.blue, 1f);
 
         // If hit..
         if (hit.collider != null)
         {
             // Grounded
+            //Debug.Log(hit.collider.name + " hit at " + hit.distance);
+                
             setGrounded(true);
         }
         else if (sinceGroundedTimer < groundedTime)
@@ -69,6 +68,7 @@ public class PlayerGrounded : MonoBehaviour
             // Not grounded
             setGrounded(false);
         }
+        
     }
 
     /// <summary>

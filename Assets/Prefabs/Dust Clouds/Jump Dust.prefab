@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2490933305168954172}
   - component: {fileID: 3188019110116751716}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Jump Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 7220631362978836812}
   - component: {fileID: 2285022914875968667}
   - component: {fileID: 5338660123017661575}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: dustJump
   m_TagString: Untagged
   m_Icon: {fileID: 0}

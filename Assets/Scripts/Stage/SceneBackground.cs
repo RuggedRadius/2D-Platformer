@@ -16,7 +16,7 @@ public class SceneBackground : MonoBehaviour
             // Create main instance
             GameObject newLayer = new GameObject("Layer " + (i + 1));
             newLayer.transform.SetParent(backgroundParent.transform);
-            newLayer.transform.localScale = Vector3.one * 5;
+            newLayer.transform.localScale = Vector3.one * 3;
             newLayer.transform.localPosition = Vector3.zero;
             //newLayer.transform.localPosition += new Vector3(0f, 0f, 0f); // Adjustments
 

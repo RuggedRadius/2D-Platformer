@@ -13,15 +13,19 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump")]
     [Range(1f, 1000f)] public float jumpPower;
     private float jumpTimer = 0;
-    private float JumpTime = 1.5f;
+    private float JumpTime = 1f;
 
     [Header("Horizontal Movement")]
     public float fHorizontalVelocity;
+    public float horizontalSlideSpeed = 5;
     [Range(0f, 1000f)] public float horizontalPower;
     [Range(0f, 100f)] public float horizontalSpeedMax;    
     [Range(0f, 1f)] public float fHorizontalDampingWhenStopping = 0.5f;
     [Range(0f, 1f)] public float fHorizontalDampingWhenTurning = 0.5f;
     [Range(0f, 1f)] public float fHorizontalDampingBasic = 0.5f;
+
+    float slideCreatedTimer = 0f;
+    float slideTimerReset = 2f;
 
     // States
     public bool grounded;
@@ -49,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Decrement jump timer
         jumpTimer -= Time.deltaTime;
+        slideCreatedTimer += Time.deltaTime;
         
         // Determine horizontal movement
         fHorizontalVelocity = rb.velocity.x;
@@ -56,6 +61,19 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.01f) 
         {
             fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingWhenStopping, Time.deltaTime * 10f);
+
+            if (slideCreatedTimer > slideTimerReset)
+            {
+                // Slide
+                if (fHorizontalVelocity > horizontalSlideSpeed || fHorizontalVelocity < -horizontalSlideSpeed)
+                {
+                    // Reset timer
+                    slideCreatedTimer = 0f;
+
+                    // Create dust
+                    dust.CreateSlideDust();
+                }
+            }
         } 
         else if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) != Mathf.Sign(fHorizontalVelocity))
         {
@@ -65,20 +83,10 @@ public class PlayerMovement : MonoBehaviour
         {
             fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingBasic, Time.deltaTime * 10f);
         }
+        fHorizontalVelocity = Mathf.Clamp(fHorizontalVelocity, -horizontalSpeedMax, horizontalSpeedMax); // Clamp speed
         rb.velocity = new Vector2(fHorizontalVelocity, rb.velocity.y);
 
-        // Flip sprite if necessary
-        if (!Mathf.Approximately(0, rb.velocity.x))
-        {
-            if (rb.velocity.x > 0)
-            {
-                playerSprite.flipX = false;
-            }
-            else
-            {
-                playerSprite.flipX = true;
-            }
-        }
+
 
         // Jump
         if (Input.GetKeyDown(KeyCode.Space))
@@ -100,11 +108,29 @@ public class PlayerMovement : MonoBehaviour
             if (jumpTimer > 0)
             {
                 Debug.Log("extra jumping");
-                rb.AddForce(new Vector2(0, jumpPower / 50), ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(0, jumpPower / 40), ForceMode2D.Impulse);
             }
         }
 
+        // Flip sprite if necessary
+        HandleSpriteDirection();
+
         UpdateAnimator();
+    }
+
+    private void HandleSpriteDirection()
+    {
+        if (!Mathf.Approximately(0, rb.velocity.x))
+        {
+            if (rb.velocity.x > 0)
+            {
+                playerSprite.flipX = false;
+            }
+            else
+            {
+                playerSprite.flipX = true;
+            }
+        }
     }
 
     private void Jump()

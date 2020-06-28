@@ -8,6 +8,9 @@ public class PlayerDustFX : MonoBehaviour
     public GameObject prefabSlide;
     public GameObject prefabJump;
 
+    public float verticalOffset = 1f;
+
+
     public void CreateImpactDust()
     {
         // Create dust
@@ -15,12 +18,12 @@ public class PlayerDustFX : MonoBehaviour
 
         // Position dust
         float x = GameManager.player.transform.position.x;
-        float y = GameManager.player.transform.position.y - 0.8f;
+        float y = GameManager.player.transform.position.y - verticalOffset;
         float z = GameManager.player.transform.position.z;
         newDust.transform.position = new Vector3(x, y, z);
 
         // Play particles
-        newDust.GetComponentInChildren<ParticleSystem>().Play();
+        //newDust.GetComponentInChildren<ParticleSystem>().Play();
     }
 
     public void CreateSlideDust()
@@ -30,12 +33,12 @@ public class PlayerDustFX : MonoBehaviour
 
         // Position dust
         float x = GameManager.player.transform.position.x;
-        float y = GameManager.player.transform.position.y - 0.8f;
+        float y = GameManager.player.transform.position.y - verticalOffset;
         float z = GameManager.player.transform.position.z;
         newDust.transform.position = new Vector3(x, y, z);
 
         // Play particles
-        newDust.GetComponentInChildren<ParticleSystem>().Play();
+        //newDust.GetComponentInChildren<ParticleSystem>().Play();
     }
 
     public void CreateJumpDust()
@@ -45,11 +48,11 @@ public class PlayerDustFX : MonoBehaviour
 
         // Position dust
         float x = GameManager.player.transform.position.x;
-        float y = GameManager.player.transform.position.y - 0.8f;
+        float y = GameManager.player.transform.position.y - verticalOffset;
         float z = GameManager.player.transform.position.z;
         newDust.transform.position = new Vector3(x, y, z);
 
         // Play particles
-        newDust.GetComponentInChildren<ParticleSystem>().Play();
+        //newDust.GetComponentInChildren<ParticleSystem>().Play();
     }
 }
