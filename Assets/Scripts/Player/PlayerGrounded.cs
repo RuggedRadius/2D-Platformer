@@ -27,6 +27,8 @@ public class PlayerGrounded : MonoBehaviour
         dust = this.GetComponent<PlayerDustFX>();
 
         layerMask = LayerMask.GetMask("Walkable");
+
+        sinceGroundedTimer = groundedTime;
     }
 
     // Update is called once per frame
@@ -100,7 +102,11 @@ public class PlayerGrounded : MonoBehaviour
             {
                 if (airBorneTimer > 2f)
                 {
+                    // Create dust
                     dust.CreateImpactDust();
+
+                    // Shake screen
+                    Camera.main.GetComponent<ScreenShake>().ShakeScreen(0.5f, 2);
                 }
             }
         }

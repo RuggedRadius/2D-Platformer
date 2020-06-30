@@ -8,51 +8,32 @@ public class PlayerDustFX : MonoBehaviour
     public GameObject prefabSlide;
     public GameObject prefabJump;
 
-    public float verticalOffset = 1f;
+    public float verticalOffset;
 
 
     public void CreateImpactDust()
     {
-        // Create dust
-        GameObject newDust = Instantiate(prefabImpact);
-
-        // Position dust
-        float x = GameManager.player.transform.position.x;
-        float y = GameManager.player.transform.position.y - verticalOffset;
-        float z = GameManager.player.transform.position.z;
-        newDust.transform.position = new Vector3(x, y, z);
-
-        // Play particles
-        //newDust.GetComponentInChildren<ParticleSystem>().Play();
+        Vector3 dustPos = Vector3.up * verticalOffset;
+        Vector3 finalPos = GameManager.player.transform.position - dustPos;
+        Instantiate(prefabImpact, finalPos, Quaternion.Euler(Vector3.zero));
     }
 
     public void CreateSlideDust()
     {
-        // Create dust
-        GameObject newDust = Instantiate(prefabSlide);
-
-        // Position dust
-        float x = GameManager.player.transform.position.x;
-        float y = GameManager.player.transform.position.y - verticalOffset;
-        float z = GameManager.player.transform.position.z;
-        newDust.transform.position = new Vector3(x, y, z);
-
-        // Play particles
-        //newDust.GetComponentInChildren<ParticleSystem>().Play();
+        ParticleSystem ps = GameManager.player.transform.Find("dustSlide").GetComponent<ParticleSystem>();
+        System.Threading.Tasks.Task.Run(() => {
+            ps.Play();
+            new WaitForSeconds(0.5f);
+            //System.Threading.Thread.Sleep(500);
+            ps.Stop();
+        });
+        
     }
 
     public void CreateJumpDust()
     {
-        // Create dust
-        GameObject newDust = Instantiate(prefabJump);
-
-        // Position dust
-        float x = GameManager.player.transform.position.x;
-        float y = GameManager.player.transform.position.y - verticalOffset;
-        float z = GameManager.player.transform.position.z;
-        newDust.transform.position = new Vector3(x, y, z);
-
-        // Play particles
-        //newDust.GetComponentInChildren<ParticleSystem>().Play();
+        Vector3 dustPos = Vector3.up * verticalOffset;
+        Vector3 finalPos = GameManager.player.transform.position - dustPos;
+        Instantiate(prefabJump, finalPos, Quaternion.Euler(Vector3.zero));
     }
 }
