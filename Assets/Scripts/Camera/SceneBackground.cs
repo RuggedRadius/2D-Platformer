@@ -16,7 +16,7 @@ public class SceneBackground : MonoBehaviour
             // Create main instance
             GameObject newLayer = new GameObject("Layer " + (i + 1));
             newLayer.transform.SetParent(backgroundParent.transform);
-            newLayer.transform.localScale = Vector3.one * 3;
+            newLayer.transform.localScale = Vector3.one;
             newLayer.transform.localPosition = Vector3.zero;
             //newLayer.transform.localPosition += new Vector3(0f, 0f, 0f); // Adjustments
 
@@ -29,13 +29,16 @@ public class SceneBackground : MonoBehaviour
             parallax.parallexEffect = ((float) layers.Length - i) / (float) layers.Length;
             parallax.cam = Camera.main.gameObject;
 
+            // Calculate horizontal offset
+            int spritePPU = 16; // Set the same as the sprite's Pixel Per Unit value.
+            float horizontalOffest = layers[i].rect.width / spritePPU;
+
             // Create right side instance
             GameObject layerRight = new GameObject("Layer " + (i + 1) + " Right");
             layerRight.transform.SetParent(newLayer.transform);
             layerRight.transform.localScale = Vector3.one;
-            layerRight.transform.localPosition = new Vector3(layers[i].rect.width / 100, 0f, 0f);
-            //layerRight.transform.localPosition += newLayer.transform.localPosition * 5;
-            //newBackgroundLayerRight.transform.position = newBackgroundLayer.transform.position + new Vector3(layers[i].rect.width, 0f, 0f);
+            layerRight.transform.localPosition = new Vector3(horizontalOffest, 0f, 0f);
+
             SpriteRenderer rendererRight = layerRight.AddComponent<SpriteRenderer>();
             rendererRight.sortingLayerName = "Background";
             rendererRight.sprite = layers[i];
@@ -45,9 +48,8 @@ public class SceneBackground : MonoBehaviour
             GameObject layerLeft = new GameObject("Layer " + (i + 1) + " Left");
             layerLeft.transform.SetParent(newLayer.transform);
             layerLeft.transform.localScale = Vector3.one;
-            layerLeft.transform.localPosition = new Vector3(-layers[i].rect.width / 100, 0f, 0f);
-            //layerLeft.transform.localPosition += newLayer.transform.localPosition * 5;
-            //newBackgroundLayerLeft.transform.position = newBackgroundLayer.transform.position - new Vector3(layers[i].rect.width, 0f, 0f);
+            layerLeft.transform.localPosition = new Vector3(-horizontalOffest, 0f, 0f);
+
             SpriteRenderer rendererLeft = layerLeft.AddComponent<SpriteRenderer>();
             rendererLeft.sortingLayerName = "Background";
             rendererLeft.sprite = layers[i];

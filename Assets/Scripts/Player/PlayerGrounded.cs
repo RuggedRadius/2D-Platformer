@@ -13,7 +13,7 @@ public class PlayerGrounded : MonoBehaviour
     RaycastHit2D hit;
     LayerMask layerMask;
     public bool grounded;
-    float groundedDistance = 0.9f;
+    float groundedDistance = 0.75f;
     float sinceGroundedTimer = 0f;
     float groundedTime = 2f;
     float airBorneTimer = 0f;

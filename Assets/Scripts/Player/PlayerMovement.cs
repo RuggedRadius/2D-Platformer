@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private SpriteRenderer playerSprite;
+    public SpriteRenderer playerSprite;
     private Animator anim;
     private PlayerGrounded pGrounded;
     private PlayerDustFX dust;
+    private PlayerLighting lighting;
 
     [Header("Jump")]
     [Range(1f, 1000f)] public float jumpPower;
     private float jumpTimer = 0;
-    private float JumpTime = 1.25f;
+    private float JumpTime = 0.75f;
 
     [Header("Horizontal Movement")]
     public float fHorizontalVelocity;
@@ -45,9 +47,12 @@ public class PlayerMovement : MonoBehaviour
         anim = this.GetComponent<Animator>();
         pGrounded = this.GetComponent<PlayerGrounded>();
         dust = this.GetComponent<PlayerDustFX>();
+        lighting = this.GetComponent<PlayerLighting>();
 
         // Init animator
         anim.SetBool("alive", true);
+
+        this.transform.position = new Vector3(transform.position.x, transform.position.y, -12);
     }
 
 
@@ -129,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
             if (jumpTimer > 0)
             {
                 Debug.Log("extra jumping");
-                rb.AddForce(new Vector2(0, jumpPower * (jumpTimer/JumpTime) * 0.015f * 2), ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(0, jumpPower * (jumpTimer/JumpTime) * 0.05f), ForceMode2D.Impulse);
             }
         }
 
@@ -160,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleSpriteDirection()
     {
+
         if (!Mathf.Approximately(0, rb.velocity.x))
         {
             if (rb.velocity.x > 0)

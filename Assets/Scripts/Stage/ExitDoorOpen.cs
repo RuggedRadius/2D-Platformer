@@ -29,8 +29,8 @@ public class ExitDoorOpen : MonoBehaviour
 
     public void OpenDoors()
     {
-        leftDoor.transform.localPosition = new Vector3(-0.05f, 0, 0);
-        rightDoor.transform.localPosition = new Vector3(0.05f, 0, 0);
+        leftDoor.transform.localPosition = new Vector3(-1f, 0, 0);
+        rightDoor.transform.localPosition = new Vector3(1f, 0, 0);
     }
 
     public void CloseDoors()
