@@ -18,7 +18,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     private void Start()
     {
-        transform.position = GameObject.FindGameObjectWithTag("StartLocation").transform.position;
+        //transform.position = GameObject.FindGameObjectWithTag("StartLocation").transform.position;
     }
 
     void Update()
@@ -28,23 +28,29 @@ public class CameraFollowPlayer : MonoBehaviour
             Vector3 playerScreenPosition = Camera.main.WorldToScreenPoint(GameManager.player.transform.position);
 
 
-            if (playerScreenPosition != Vector3.zero)
-            {
-                if (playerScreenPosition.x < dzHorizontalMargin ||
-                    playerScreenPosition.x > Screen.width - dzHorizontalMargin ||
-                    playerScreenPosition.y < dzVerticalMargin ||
-                    playerScreenPosition.y > Screen.height - dzVerticalMargin)
-                {
-                    Vector3 playerNewCamPosition = new Vector3(
-                        GameManager.player.transform.position.x,
-                        GameManager.player.transform.position.y,
-                        cameraDepth
-                        );
-                    transform.position = Vector3.Lerp(transform.position, playerNewCamPosition, offsetSmoothing * Time.deltaTime);
-                }
-            }
+            //if (playerScreenPosition != Vector3.zero)
+            //{
+            //    if (playerScreenPosition.x < dzHorizontalMargin ||
+            //        playerScreenPosition.x > Screen.width - dzHorizontalMargin ||
+            //        playerScreenPosition.y < dzVerticalMargin ||
+            //        playerScreenPosition.y > Screen.height - dzVerticalMargin)
+            //    {
+            //        // Outside of dead zone
+            //        Vector3 playerNewCamPosition = new Vector3(
+            //            GameManager.player.transform.position.x,
+            //            GameManager.player.transform.position.y,
+            //            cameraDepth
+            //            );
+            //        transform.position = Vector3.Lerp(transform.position, playerNewCamPosition, offsetSmoothing * Time.deltaTime);
+            //    }
+            //}
 
-
+            Vector3 playerNewCamPosition = new Vector3(
+                GameManager.player.transform.position.x,
+                GameManager.player.transform.position.y,
+                cameraDepth
+                );
+            transform.position = playerNewCamPosition;
 
             if (!IsPlayerVisible())
             {
@@ -64,29 +70,9 @@ public class CameraFollowPlayer : MonoBehaviour
         var point = GameManager.player.transform.position;
         foreach (var plane in planes)
         {
-            if (plane.GetDistanceToPoint(point) < 0)
+            if (plane.GetDistanceToPoint(point) > 0)
                 return false;
         }
         return true;
     }
-
-    private void MoveUpLevel()
-    {
-        Camera.main.transform.position = new Vector3(
-            Camera.main.transform.position.x,
-            Camera.main.transform.position.y + Screen.height,
-            Camera.main.transform.position.z
-            );
-    }
-
-    private void MoveDownLevel()
-    {
-        Camera.main.transform.position = new Vector3(
-            Camera.main.transform.position.x,
-            Camera.main.transform.position.y - Screen.height,
-            Camera.main.transform.position.z
-            );
-    }
-
-
 }

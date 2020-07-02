@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         // Init animator
         anim.SetBool("alive", true);
 
-        this.transform.position = new Vector3(transform.position.x, transform.position.y, -12);
+        this.transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
 

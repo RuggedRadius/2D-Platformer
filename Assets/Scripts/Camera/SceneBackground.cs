@@ -7,6 +7,8 @@ public class SceneBackground : MonoBehaviour
     public Sprite[] layers;
     private GameObject backgroundParent;
 
+    public float backgroundDistance = 20;
+
     void Start()
     {
         backgroundParent = Camera.main.transform.Find("Background").gameObject;
@@ -37,7 +39,8 @@ public class SceneBackground : MonoBehaviour
             GameObject layerRight = new GameObject("Layer " + (i + 1) + " Right");
             layerRight.transform.SetParent(newLayer.transform);
             layerRight.transform.localScale = Vector3.one;
-            layerRight.transform.localPosition = new Vector3(horizontalOffest, 0f, 0f);
+            //layerRight.transform.localPosition = new Vector3(horizontalOffest, 0f, backgroundDistance);
+            layerRight.transform.localPosition = Vector3.zero;
 
             SpriteRenderer rendererRight = layerRight.AddComponent<SpriteRenderer>();
             rendererRight.sortingLayerName = "Background";
@@ -48,7 +51,7 @@ public class SceneBackground : MonoBehaviour
             GameObject layerLeft = new GameObject("Layer " + (i + 1) + " Left");
             layerLeft.transform.SetParent(newLayer.transform);
             layerLeft.transform.localScale = Vector3.one;
-            layerLeft.transform.localPosition = new Vector3(-horizontalOffest, 0f, 0f);
+            layerLeft.transform.localPosition = Vector3.zero;
 
             SpriteRenderer rendererLeft = layerLeft.AddComponent<SpriteRenderer>();
             rendererLeft.sortingLayerName = "Background";
