@@ -6,6 +6,8 @@ public class Collectable : MonoBehaviour
 {
     private GameManager gm;
     public int scoreValue;
+    public int batteryLifeIncrease;
+    public int lifeIncrease;
 
     private void Start()
     {
@@ -25,7 +27,10 @@ public class Collectable : MonoBehaviour
         // Increment player score
         GameManager.gameData.score += Mathf.Abs(scoreValue);
 
-        // Add to total, accumulating to an extra life at 100
+        GameManager.player.GetComponent<PlayerTorch>().AddBattery(batteryLifeIncrease);
+        GameManager.player.GetComponent<Life>().current += lifeIncrease;
+
+
 
         // SFX
         // ...

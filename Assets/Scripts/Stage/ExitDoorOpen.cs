@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class ExitDoorOpen : MonoBehaviour
 {
@@ -31,11 +32,13 @@ public class ExitDoorOpen : MonoBehaviour
     {
         leftDoor.transform.localPosition = new Vector3(-1f, 0, 0);
         rightDoor.transform.localPosition = new Vector3(1f, 0, 0);
+        this.GetComponentInChildren<Light2D>().enabled = true;
     }
 
     public void CloseDoors()
     {
         leftDoor.transform.localPosition = Vector3.zero;
         rightDoor.transform.localPosition = Vector3.zero;
+        this.GetComponentInChildren<Light2D>().enabled = false;
     }
 }

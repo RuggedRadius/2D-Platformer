@@ -10,6 +10,7 @@ TagManager:
   - Map
   - WorldCanavs
   - Screen
+  - BatteryBar
   layers:
   - Default
   - TransparentFX
@@ -73,6 +74,9 @@ TagManager:
     locked: 0
   - name: Scenary Foreground
     uniqueID: 2876166595
+    locked: 0
+  - name: Neon
+    uniqueID: 1602455369
     locked: 0
   - name: UI
     uniqueID: 3246084475

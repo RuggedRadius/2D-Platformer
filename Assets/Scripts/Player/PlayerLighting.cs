@@ -7,6 +7,7 @@ public class PlayerLighting : MonoBehaviour
 {
     private PlayerMovement pMovement;
     private PlayerGrounded pGrounded;
+    private PlayerTorch torch;
     private Light2D visionLight;
     
 
@@ -23,6 +24,7 @@ public class PlayerLighting : MonoBehaviour
     {
         pMovement = this.GetComponent<PlayerMovement>();
         pGrounded = this.GetComponent<PlayerGrounded>();
+        torch = this.GetComponent<PlayerTorch>();
         visionLight = GameManager.player.transform.Find("Vision Light").GetComponent<Light2D>();
         anim = this.GetComponent<Animator>();
     }
@@ -31,36 +33,47 @@ public class PlayerLighting : MonoBehaviour
     {
         currentAnimInfo = anim.GetCurrentAnimatorStateInfo(0);
 
-        if (currentAnimInfo.IsName("Front Idle"))
+        if (torch.on)
         {
-            // Front facing
-            visionLight.pointLightInnerAngle = frontInnerAngle;
-            visionLight.pointLightOuterAngle = frontOuterAngle;
-            visionLight.pointLightOuterRadius = 4;
-        }
-        else if (currentAnimInfo.IsName("Side Jump") ||
-                currentAnimInfo.IsName("Front Jump"))
-        {
-            // Jumping
-            visionLight.pointLightInnerAngle = frontInnerAngle;
-            visionLight.pointLightOuterAngle = frontOuterAngle;
-            visionLight.pointLightOuterRadius = 4;
-        }
-        else
-        {
-            // Side facing
-            visionLight.pointLightOuterRadius = 8;
-            visionLight.pointLightInnerAngle = sideInnerAngle;
-            visionLight.pointLightOuterAngle = sideOuterAngle;
+            // Torch is on
+            visionLight.enabled = true;
 
-            if (pMovement.playerSprite.flipX)
+            if (currentAnimInfo.IsName("Front Idle"))
             {
-                visionLight.transform.eulerAngles = Vector3.forward * 90;
+                // Front facing
+                visionLight.pointLightInnerAngle = frontInnerAngle;
+                visionLight.pointLightOuterAngle = frontOuterAngle;
+                visionLight.pointLightOuterRadius = 4;
+            }
+            else if (currentAnimInfo.IsName("Side Jump") ||
+                    currentAnimInfo.IsName("Front Jump"))
+            {
+                // Jumping
+                visionLight.pointLightInnerAngle = frontInnerAngle;
+                visionLight.pointLightOuterAngle = frontOuterAngle;
+                visionLight.pointLightOuterRadius = 4;
             }
             else
             {
-                visionLight.transform.eulerAngles = Vector3.back * 90;
+                // Side facing
+                visionLight.pointLightOuterRadius = 8;
+                visionLight.pointLightInnerAngle = sideInnerAngle;
+                visionLight.pointLightOuterAngle = sideOuterAngle;
+
+                if (pMovement.playerSprite.flipX)
+                {
+                    visionLight.transform.eulerAngles = Vector3.forward * 90;
+                }
+                else
+                {
+                    visionLight.transform.eulerAngles = Vector3.back * 90;
+                }
             }
-        }        
+        }
+        else
+        {
+            // Torch is off
+            visionLight.enabled = false;
+        }
     }
 }
