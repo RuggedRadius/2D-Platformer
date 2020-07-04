@@ -13,6 +13,8 @@ public class PlayerGrounded : MonoBehaviour
     RaycastHit2D hit;
     LayerMask layerMask;
     public bool grounded;
+
+    float rayVerticalOffset = 0.5f;
     float groundedDistance = 0.75f;
     float sinceGroundedTimer = 0f;
     float groundedTime = 2f;
@@ -45,20 +47,30 @@ public class PlayerGrounded : MonoBehaviour
 
 
         // Set position and direction of shot
-        origin = new Vector3(this.transform.position.x, this.transform.position.y - 1f, this.transform.position.z);
+        origin = new Vector3(this.transform.position.x, this.transform.position.y - rayVerticalOffset, this.transform.position.z);
+
+        // Create layermask
+        LayerMask lm = LayerMask.GetMask("Player", "Default");
+        int mask = 1 << 8;
+        //lm = LayerMask.NameToLayer("Player");
 
         // Shoot the shot
-        hit = Physics2D.Raycast(origin, Vector3.down, groundedDistance, layerMask.value);
+        hit = Physics2D.Raycast(origin, Vector3.down, groundedDistance, mask);
         Debug.DrawRay(origin, Vector3.down, Color.red, 1f);
         Debug.DrawLine(origin, origin + Vector2.down, Color.blue, 1f);
 
         // If hit..
         if (hit.collider != null)
         {
+            if (hit.collider.gameObject.layer == 8)
+            {
+                // Walkable
+                setGrounded(true);
+            }
             // Grounded
-            //Debug.Log(hit.collider.name + " hit at " + hit.distance);
+            Debug.Log(hit.collider.name + " hit on " + hit.collider.gameObject.layer);
                 
-            setGrounded(true);
+            
         }
         else if (sinceGroundedTimer < groundedTime)
         {

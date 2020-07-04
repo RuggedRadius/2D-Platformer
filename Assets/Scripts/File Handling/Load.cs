@@ -24,8 +24,8 @@ public static class Load
                 GameManager.gameData = (GameData) binaryFormatter.Deserialize(file);
 
                 //LoadScene();
-                LoadEnemyData();
-                LoadObjects();
+                //LoadEnemyData();
+                //LoadObjects();
                 LoadPlayerPosition();
 
 

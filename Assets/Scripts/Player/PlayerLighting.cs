@@ -43,20 +43,20 @@ public class PlayerLighting : MonoBehaviour
                 // Front facing
                 visionLight.pointLightInnerAngle = frontInnerAngle;
                 visionLight.pointLightOuterAngle = frontOuterAngle;
-                visionLight.pointLightOuterRadius = 4;
+                //visionLight.pointLightOuterRadius = 4;
             }
-            else if (currentAnimInfo.IsName("Side Jump") ||
-                    currentAnimInfo.IsName("Front Jump"))
-            {
-                // Jumping
-                visionLight.pointLightInnerAngle = frontInnerAngle;
-                visionLight.pointLightOuterAngle = frontOuterAngle;
-                visionLight.pointLightOuterRadius = 4;
-            }
+            //else if (currentAnimInfo.IsName("Side Jump") ||
+            //        currentAnimInfo.IsName("Front Jump"))
+            //{
+            //    // Jumping
+            //    visionLight.pointLightInnerAngle = frontInnerAngle;
+            //    visionLight.pointLightOuterAngle = frontOuterAngle;
+            //    //visionLight.pointLightOuterRadius = 4;
+            //}
             else
             {
                 // Side facing
-                visionLight.pointLightOuterRadius = 8;
+                //visionLight.pointLightOuterRadius = 8;
                 visionLight.pointLightInnerAngle = sideInnerAngle;
                 visionLight.pointLightOuterAngle = sideOuterAngle;
 

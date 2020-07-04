@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Horizontal Movement")]
     public float fHorizontalVelocity;
     public float horizontalSlideSpeed = 5;
-    [Range(0f, 50f)] public float horizontalPower;
+    [Range(0f, 1000f)] public float horizontalPower;
     [Range(0f, 100f)] public float horizontalSpeedMax;    
     [Range(0f, 1f)] public float fHorizontalDampingWhenStopping = 0.5f;
     [Range(0f, 1f)] public float fHorizontalDampingWhenTurning = 0.5f;
